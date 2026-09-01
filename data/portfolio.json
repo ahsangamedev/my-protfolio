@@ -1,0 +1,142 @@
+{
+  "settings": {
+    "projectsPreviewCount": 3
+  },
+  "profile": {
+    "name": "Muhammad Ahsan Nasir",
+    "shortName": "Ahsan",
+    "title": "Unity Game Developer",
+    "tagline": "Building worlds, one pixel at a time.",
+    "avatar": "assets/images/profile/profileimage.jpg",
+    "bio": "I'm a passionate Unity game developer who loves crafting immersive 2D and 3D experiences. From tight platformer mechanics to polished UI systems, I turn ideas into playable worlds that players remember.",
+    "location": "New Mirpur City, Azad Kashmir Pakistan",
+    "email": "ahsan.mzd01@gmail.com"
+  },
+  "resume": {
+    "file": "assets/resume/resume.pdf",
+    "summary": "Download my full resume or view a quick summary of my experience below.",
+    "experience": [
+      {
+        "role": "Unity Game Developer",
+        "company": "Studio / Freelance",
+        "period": "2023 — Present",
+        "description": "Designed and shipped gameplay systems, level design, and player mechanics for indie titles."
+      },
+      {
+        "role": "Game Developer",
+        "company": "Self employeed",
+        "period": "2024 — >",
+        "description": "Contributed to mobile and PC games using C#, Unity, and collaborative version control."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "category": "Game Development",
+      "items": [
+        { "name": "Unity / C#", "level": 90 },
+        { "name": "2D Platformers", "level": 85 },
+        { "name": "Game Design", "level": 80 },
+        { "name": "Physics & Animation", "level": 75 }
+      ]
+    },
+    {
+      "category": "Tools & Pipeline",
+      "items": [
+        { "name": "Git / GitHub", "level": 85 },
+        { "name": "Blender", "level": 40 },
+        { "name": "Photoshop / Aseprite", "level": 70 },
+        { "name": "CI / Build Pipelines", "level": 65 }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Cube Runner 3D",
+      "description": "A retro 2D platformer with tight controls, boss fights, and a dynamic parallax world.",
+      "image": "assets/images/projects/placeholder.svg",
+      "tags": ["Unity", "2D", "C#"],
+      "links": {
+        "demo": "https://example.com",
+        "github": "https://github.com/yourusername",
+        "video": "https://youtube.com"
+      }
+    },
+    {
+      "title": "Space Runner",
+      "description": "Endless runner with procedural levels, power-ups, and mobile touch controls.",
+      "image": "assets/images/projects/placeholder.svg",
+      "tags": ["Unity", "Mobile", "Procedural"],
+      "links": {
+        "demo": "https://example.com",
+        "github": "https://github.com/yourusername",
+        "video": "https://youtube.com"
+      }
+    },
+    {
+      "title": "Dungeon Crawler",
+      "description": "Top-down roguelike with AI enemies, loot systems, and shader-based lighting.",
+      "image": "assets/images/projects/placeholder.svg",
+      "tags": ["Unity", "Roguelike", "Shaders"],
+      "links": {
+        "demo": "https://example.com",
+        "github": "https://github.com/yourusername",
+        "video": "https://youtube.com"
+      }
+    },
+    {
+      "title": "Neon Drift",
+      "description": "Arcade racing prototype with drift mechanics, neon visuals, and time-trial leaderboards.",
+      "image": "assets/images/projects/placeholder.svg",
+      "tags": ["Unity", "3D", "Racing"],
+      "links": {
+        "demo": "https://example.com",
+        "github": "https://github.com/yourusername",
+        "video": "https://youtube.com"
+      }
+    },
+    {
+      "title": "Puzzle Forge",
+      "description": "Grid-based puzzle game with crafting combos, level editor tools, and mobile-friendly UI.",
+      "image": "assets/images/projects/placeholder.svg",
+      "tags": ["Unity", "Puzzle", "Mobile"],
+      "links": {
+        "demo": "https://example.com",
+        "github": "https://github.com/yourusername",
+        "video": "https://youtube.com"
+      }
+    }
+  ],
+  "social": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/ahsangamedev",
+      "icon": "assets/images/icons/icons8-github-32.png"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/yourusername",
+      "icon": "assets/images/icons/icons8-linkedin-32.png"
+    },
+    {
+      "name": "Itch.io",
+      "url": "https://cindralstudios.itch.io/",
+      "icon": "assets/images/icons/icons8-itch-io-32.png"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@CindralStudios",
+      "icon": "assets/images/icons/icons8-youtube-32.png"
+    },
+    {
+      "name": "Twitter / X",
+      "url": "https://x.com/yourusername",
+      "icon": "assets/images/icons/icons8-twitter-circled-32.png"
+    },
+    {
+      "name": "Email",
+      "url": "mailto:ahsangamedev66@gmail.com",
+      "icon": "assets/images/icons/icons8-gmail-logo-32.png"
+    }
+  ]
+}
