@@ -11,7 +11,8 @@ let navWalker = null;
 let heroPlane = null;
 let lastScrollY = 0;
 let scrollDirection = 1;
-let projectsPreviewCount = 3;
+let allProjects = [];
+let activeProjectFilter = "All";
 
 async function init() {
   try {
@@ -24,6 +25,7 @@ async function init() {
 
   renderContent(portfolioData);
   setupNav();
+  setupBackToTop();
   setupCharacterRail();
   setupScrollSpy();
 
@@ -60,10 +62,11 @@ function renderContent(data) {
   const resumeBtn = document.getElementById("hero-resume-btn");
   resumeBtn.href = resume.file;
 
+  const releasedProjects = projects.filter((project) => project.status === "Released").length;
   document.getElementById("hero-stats").innerHTML = `
-    <div class="stat"><span class="stat-value">${projects.length}</span><span class="stat-label">Projects</span></div>
-    <div class="stat"><span class="stat-value">${skills.reduce((n, c) => n + c.items.length, 0)}</span><span class="stat-label">Skills</span></div>
-    <div class="stat"><span class="stat-value">${resume.experience.length}+</span><span class="stat-label">Years Exp.</span></div>
+    <div class="stat"><span class="stat-value">${releasedProjects}</span><span class="stat-label">Shipped Game</span></div>
+    <div class="stat"><span class="stat-value">${skills.reduce((n, c) => n + c.items.length, 0)}</span><span class="stat-label">Core Skills</span></div>
+    <div class="stat"><span class="stat-value">Open</span><span class="stat-label">Availability</span></div>
   `;
 
   document.getElementById("about-content").innerHTML = `
@@ -94,7 +97,7 @@ function renderContent(data) {
     </div>
   `;
 
-  renderProjects(projects, data.settings?.projectsPreviewCount ?? 3);
+  renderProjects(projects);
 
   document.getElementById("skills-content").innerHTML = skills
     .map(
@@ -150,33 +153,78 @@ function renderContent(data) {
     <div class="contact-intro">
       <h3>Open to opportunities</h3>
       <p>Whether it's a full-time role, contract work, or a cool jam project — I'd love to hear from you.</p>
-      <a href="mailto:${profile.email}" class="btn btn-primary">${profile.email}</a>
+      <div class="contact-actions">
+        <a href="mailto:${profile.email}" class="btn btn-primary">Email Me</a>
+        <button type="button" class="btn btn-ghost copy-email" id="copy-email" data-email="${profile.email}">Copy Email</button>
+      </div>
+      <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
     </div>
     <div class="social-links">
       ${social.map((s) => renderSocialCard(s)).join("")}
     </div>
   `;
+
+  setupCopyEmail();
 }
 
-function renderProjects(projects, previewCount) {
-  projectsPreviewCount = previewCount;
+function renderProjects(projects) {
+  allProjects = projects;
+  activeProjectFilter = "All";
+  updateProjectList();
+}
+
+function updateProjectList() {
+  const filteredProjects = activeProjectFilter === "All"
+    ? allProjects
+    : allProjects.filter((project) => project.tags.includes(activeProjectFilter));
   const grid = document.getElementById("projects-content");
-  grid.innerHTML = projects
-    .map((project, index) => renderProjectCard(project, index, previewCount))
-    .join("");
+  const footer = document.getElementById("projects-footer");
 
-  renderProjectsFooter(projects.length, false);
+  grid.innerHTML = filteredProjects.length
+    ? filteredProjects.map((project, index) => renderProjectCard(project, index)).join("")
+    : `<p class="project-empty">No projects match this filter yet.</p>`;
+
+  if (footer) {
+    footer.innerHTML = `<p class="projects-note">Select a tag to explore the work. Prototype projects are actively being developed.</p>`;
+  }
+
+  renderProjectControls(filteredProjects.length);
 }
 
-function renderProjectCard(project, index, previewCount) {
-  const hiddenClass = index >= previewCount ? " project-card--hidden" : "";
+function renderProjectControls(visibleCount) {
+  const controls = document.getElementById("projects-controls");
+  if (!controls) return;
+
+  const filters = ["All", ...new Set(allProjects.flatMap((project) => project.tags))];
+  controls.innerHTML = `
+    <p class="projects-summary" aria-live="polite">Showing ${visibleCount} of ${allProjects.length} projects</p>
+    <div class="project-filters" role="group" aria-label="Filter projects by skill">
+      ${filters.map((filter) => `
+        <button class="filter-chip${filter === activeProjectFilter ? " active" : ""}" type="button" data-filter="${filter}" aria-pressed="${filter === activeProjectFilter}">${filter}</button>
+      `).join("")}
+    </div>
+  `;
+
+  controls.querySelectorAll(".filter-chip").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeProjectFilter = button.dataset.filter;
+      updateProjectList();
+    });
+  });
+}
+
+function renderProjectCard(project, index) {
+  const featuredClass = index === 0 ? " project-card--featured" : "";
+  const status = project.status || "Project";
 
   return `
-    <article class="project-card${hiddenClass}" data-project-index="${index}">
+    <article class="project-card${featuredClass}">
       <div class="project-image-wrap">
         <img src="${project.image}" alt="${project.title}" loading="lazy" onerror="this.src='assets/images/projects/placeholder.svg'" />
+        <span class="project-status project-status--${status.toLowerCase().replaceAll(" ", "-")}">${status}</span>
       </div>
       <div class="project-body">
+        <p class="project-kicker">${index === 0 ? "Featured project" : "Game project"}</p>
         <h3>${project.title}</h3>
         <p>${project.description}</p>
         <div class="project-actions">${renderProjectActions(project.links)}</div>
@@ -187,64 +235,16 @@ function renderProjectCard(project, index, previewCount) {
 }
 
 function renderProjectActions(links = {}) {
-  return PROJECT_LINKS.map(({ key, label, variant = "" }) => {
-    const url = links[key]?.trim();
-    const classes = ["btn", "btn-sm", variant].filter(Boolean).join(" ");
-
-    if (url) {
-      return `<a href="${url}" target="_blank" rel="noopener" class="${classes}">${label}</a>`;
-    }
-
-    return `<span class="${classes} btn-disabled" aria-disabled="true">${label}</span>`;
-  }).join("");
-}
-
-function expandProjects() {
-  document.querySelectorAll(".project-card--hidden").forEach((card) => {
-    card.classList.remove("project-card--hidden");
-  });
-}
-
-function collapseProjects() {
-  document.querySelectorAll(".project-card").forEach((card) => {
-    const index = Number(card.dataset.projectIndex);
-    if (index >= projectsPreviewCount) {
-      card.classList.add("project-card--hidden");
-    }
-  });
-}
-
-function renderProjectsFooter(totalProjects, expanded) {
-  const footer = document.getElementById("projects-footer");
-  if (!footer) return;
-
-  footer.innerHTML = "";
-
-  if (totalProjects <= projectsPreviewCount) return;
-
-  const hiddenCount = totalProjects - projectsPreviewCount;
-  const button = document.createElement("button");
-  button.type = "button";
-
-  if (expanded) {
-    button.className = "btn btn-ghost projects-see-less";
-    button.textContent = "See Less";
-    button.addEventListener("click", () => {
-      collapseProjects();
-      renderProjectsFooter(totalProjects, false);
-      onScroll();
-    });
-  } else {
-    button.className = "btn btn-primary projects-see-more";
-    button.textContent = `See More (${hiddenCount})`;
-    button.addEventListener("click", () => {
-      expandProjects();
-      renderProjectsFooter(totalProjects, true);
-      onScroll();
-    });
+  const availableLinks = PROJECT_LINKS.filter(({ key }) => links[key]?.trim());
+  if (!availableLinks.length) {
+    return `<p class="project-unavailable">Private build — updates coming soon.</p>`;
   }
 
-  footer.appendChild(button);
+  return availableLinks.map(({ key, label, variant = "" }) => {
+    const url = links[key]?.trim();
+    const classes = ["btn", "btn-sm", variant].filter(Boolean).join(" ");
+    return `<a href="${url}" target="_blank" rel="noopener" class="${classes}">${label}</a>`;
+  }).join("");
 }
 
 function renderSocialCard(social) {
@@ -273,6 +273,41 @@ function setText(id, text) {
   if (el) el.textContent = text;
 }
 
+function setupCopyEmail() {
+  const button = document.getElementById("copy-email");
+  const feedback = document.getElementById("copy-feedback");
+  if (!button || !feedback) return;
+
+  button.addEventListener("click", async () => {
+    const email = button.dataset.email;
+    const originalLabel = button.textContent;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const helper = document.createElement("textarea");
+        helper.value = email;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      button.textContent = "Email copied!";
+      feedback.textContent = "Email address copied to your clipboard.";
+    } catch {
+      feedback.textContent = "Copy wasn't available. Please use the Email Me button instead.";
+    }
+
+    window.setTimeout(() => {
+      button.textContent = originalLabel;
+    }, 2200);
+  });
+}
+
 function setupNav() {
   const links = document.querySelectorAll(".nav-link");
   const toggle = document.querySelector(".menu-toggle");
@@ -286,6 +321,7 @@ function setupNav() {
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
         nav.classList.remove("open");
+        document.body.classList.remove("nav-open");
         toggle.setAttribute("aria-expanded", "false");
       }
     });
@@ -293,6 +329,7 @@ function setupNav() {
 
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
+    document.body.classList.toggle("nav-open", open);
     toggle.setAttribute("aria-expanded", open);
   });
 
@@ -300,12 +337,14 @@ function setupNav() {
     if (!nav.classList.contains("open")) return;
     if (nav.contains(e.target) || toggle.contains(e.target)) return;
     nav.classList.remove("open");
+    document.body.classList.remove("nav-open");
     toggle.setAttribute("aria-expanded", "false");
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && nav.classList.contains("open")) {
       nav.classList.remove("open");
+      document.body.classList.remove("nav-open");
       toggle.setAttribute("aria-expanded", "false");
     }
   });
@@ -329,7 +368,13 @@ function setupScrollSpy() {
         if (entry.isIntersecting) {
           const id = entry.target.id;
           document.querySelectorAll(".nav-link").forEach((link) => {
-            link.classList.toggle("active", link.dataset.section === id);
+            const isActive = link.dataset.section === id;
+            link.classList.toggle("active", isActive);
+            if (isActive) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
           });
           document.querySelectorAll(".rail-dot").forEach((dot) => {
             dot.classList.toggle("active", dot.dataset.section === id);
@@ -365,6 +410,16 @@ function setupScrollSpy() {
   onScroll();
 }
 
+function setupBackToTop() {
+  const button = document.getElementById("back-to-top");
+  if (!button) return;
+
+  button.addEventListener("click", () => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  });
+}
+
 function onScroll() {
   const scrollY = window.scrollY;
   scrollDirection = scrollY > lastScrollY ? 1 : -1;
@@ -378,6 +433,13 @@ function onScroll() {
 
   const mobileFill = document.getElementById("mobile-scroll-fill");
   if (mobileFill) mobileFill.style.width = `${progress * 100}%`;
+
+  const backToTop = document.getElementById("back-to-top");
+  if (backToTop) {
+    const isVisible = scrollY > 560;
+    backToTop.classList.toggle("is-visible", isVisible);
+    backToTop.tabIndex = isVisible ? 0 : -1;
+  }
 
   updateCharacterPosition(progress);
 }

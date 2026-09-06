@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="bg-pixel" aria-hidden="true"></div>
   <div class="bg-unity-logo" aria-hidden="true">
     <img src="assets/images/icons/unity-game-engine-logo.png" alt="" />
@@ -23,15 +24,16 @@
       <span class="logo-pixel">&lt;/&gt;</span>
       <span class="logo-name" id="nav-name">Portfolio</span>
     </a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="#home" class="nav-link active" data-section="home">Home</a>
+    <nav class="site-nav" id="primary-nav" aria-label="Main navigation">
+      <a href="#home" class="nav-link active" data-section="home" aria-current="page">Home</a>
       <a href="#about" class="nav-link" data-section="about">About</a>
       <a href="#projects" class="nav-link" data-section="projects">Projects</a>
       <a href="#skills" class="nav-link" data-section="skills">Skills</a>
       <a href="#resume" class="nav-link" data-section="resume">Resume</a>
       <a href="#contact" class="nav-link" data-section="contact">Contact</a>
     </nav>
-    <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+    <span class="availability-indicator"><span class="availability-dot"></span>Open to opportunities</span>
+    <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-walker-track" aria-hidden="true">
@@ -60,6 +62,11 @@
           <h1 id="hero-name">Your Name</h1>
           <p class="hero-tagline" id="hero-tagline">Building worlds, one pixel at a time.</p>
           <p class="hero-bio" id="hero-bio"></p>
+          <div class="hero-signals" aria-label="Specialisms">
+            <span>Gameplay systems</span>
+            <span>Unity / C#</span>
+            <span>2D &amp; 3D</span>
+          </div>
           <div class="hero-actions">
             <a href="#projects" class="btn btn-primary">View Projects</a>
             <a href="#resume" class="btn btn-ghost" id="hero-resume-btn">Download Resume</a>
@@ -99,8 +106,9 @@
         <header class="section-header">
           <span class="section-num">02</span>
           <h2>Projects</h2>
-          <p class="section-sub">Games and interactive experiences I've shipped</p>
+          <p class="section-sub">Released work and active game prototypes</p>
         </header>
+        <div class="projects-controls" id="projects-controls" aria-label="Project filters"></div>
         <div class="projects-grid" id="projects-content"></div>
         <div class="projects-footer" id="projects-footer"></div>
       </div>
@@ -143,6 +151,9 @@
   <div class="mobile-scroll-progress" id="mobile-scroll-progress" aria-hidden="true">
     <div class="mobile-scroll-fill" id="mobile-scroll-fill"></div>
   </div>
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top" tabindex="-1">
+    <span aria-hidden="true">↑</span><span>Top</span>
+  </button>
 
   <footer class="site-footer">
     <p>Built with passion for games · <span id="footer-name">Your Name</span></p>

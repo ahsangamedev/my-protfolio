@@ -7,10 +7,10 @@
     "name": "Muhammad Ahsan Nasir",
     "shortName": "Ahsan",
     "title": "Unity Game Developer",
-    "tagline": "Building worlds, one pixel at a time.",
+    "tagline": "Turning ideas into polished, player-first games.",
     "avatar": "assets/images/profile/profileimage.jpg",
     "bio": "I'm a passionate Unity game developer who loves crafting immersive 2D and 3D experiences. From tight platformer mechanics to polished UI systems, I turn ideas into playable worlds that players remember.",
-    "location": "New Mirpur City, Azad Kashmir Pakistan",
+    "location": "New Mirpur City, Azad Kashmir, Pakistan",
     "email": "ahsangamedev66@gmail.com"
   },
 
@@ -20,9 +20,9 @@
     "experience": [
       {
         "role": "Game Developer",
-        "company": "Self employeed",
-        "period": "2024 — >",
-        "description": "Contributed to mobile and PC games using C#, Unity, and collaborative version control."
+        "company": "Independent",
+        "period": "2024 — Present",
+        "description": "Developing mobile and PC game prototypes with Unity and C#, with a focus on responsive gameplay, clean systems, and player experience."
       }
     ]
   },
@@ -76,6 +76,7 @@
   "projects": [
     {
       "title": "ZigZag Run",
+      "status": "Released",
       "description": "ZigZag Run is an exciting endless car game that challenges players to navigate a challenging and unpredictable road. Test your reflexes, control your vehicle carefully, and avoid falling off the edge as the road becomes increasingly difficult. How far can you go?",
       "image": "assets/images/projects/zigzagrun.svg",
       "tags": [
@@ -92,6 +93,7 @@
 
     {
       "title": "Space Runner",
+      "status": "In development",
       "description": "Endless runner with procedural levels, power-ups, and mobile touch controls.",
       "image": "assets/images/projects/placeholder.svg",
       "tags": [
@@ -99,15 +101,12 @@
         "Mobile",
         "Procedural"
       ],
-      "links": {
-        "demo": "https://example.com",
-        "github": "https://github.com/yourusername",
-        "video": "https://youtube.com"
-      }
+      "links": {}
     },
 
     {
       "title": "Dungeon Crawler",
+      "status": "Prototype",
       "description": "Top-down roguelike with AI enemies, loot systems, and shader-based lighting.",
       "image": "assets/images/projects/placeholder.svg",
       "tags": [
@@ -115,15 +114,12 @@
         "Roguelike",
         "Shaders"
       ],
-      "links": {
-        "demo": "https://example.com",
-        "github": "https://github.com/yourusername",
-        "video": "https://youtube.com"
-      }
+      "links": {}
     },
 
     {
       "title": "Neon Drift",
+      "status": "Prototype",
       "description": "Arcade racing prototype with drift mechanics, neon visuals, and time-trial leaderboards.",
       "image": "assets/images/projects/placeholder.svg",
       "tags": [
@@ -131,15 +127,12 @@
         "3D",
         "Racing"
       ],
-      "links": {
-        "demo": "https://example.com",
-        "github": "https://github.com/yourusername",
-        "video": "https://youtube.com"
-      }
+      "links": {}
     },
 
     {
       "title": "Puzzle Forge",
+      "status": "In development",
       "description": "Grid-based puzzle game with crafting combos, level editor tools, and mobile-friendly UI.",
       "image": "assets/images/projects/placeholder.svg",
       "tags": [
@@ -147,11 +140,7 @@
         "Puzzle",
         "Mobile"
       ],
-      "links": {
-        "demo": "https://example.com",
-        "github": "https://github.com/yourusername",
-        "video": "https://youtube.com"
-      }
+      "links": {}
     }
   ],
 

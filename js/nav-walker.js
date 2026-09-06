@@ -20,11 +20,10 @@ class NavWalker {
     this.pauseDuration = 2600;
 
     this.messages = [
-      "please hire me",
-      "my resume is also here",
-      "cant wait to get hired",
-      "love money",
-      "you are handsome",
+      "player-first games",
+      "browse my latest work",
+      "open to opportunities",
+      "let's build something memorable",
     ];
     this.messageIndex = 0;
   }
