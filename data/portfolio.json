@@ -92,16 +92,20 @@
     },
 
     {
-      "title": "Space Runner",
-      "status": "In development",
-      "description": "Endless runner with procedural levels, power-ups, and mobile touch controls.",
-      "image": "assets/images/projects/placeholder.svg",
+      "title": "HighWay Crash",
+      "status": "Released",
+      "description": "Highway Crash is an exciting endless driving game where you race down a busy highway and test your reflexes. Drive your car through endless roads, avoid incoming vehicles and traffic, and survive for as long as possible. The longer you drive, the greater the challenge becomes. How far can you go without crashing?",
+      "image": "assets/images/projects/HighwayCrash.png",
       "tags": [
-        "Unity",
-        "Mobile",
-        "Procedural"
+        "Unity","3D","C#",
+        "Mobile","Windows"
+        
       ],
-      "links": {}
+      "links": {
+        "demo": "https://github.com/ahsangamedev/HighwayCrashCode",
+        "github": "https://github.com/ahsangamedev/ZigZag",
+        "video": "https://www.youtube.com/watch?v=hDmVM90XUOw"
+      }
     },
 
     {
