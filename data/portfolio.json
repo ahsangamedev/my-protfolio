@@ -77,16 +77,16 @@
     {
       "title": "ZigZag Run",
       "description": "ZigZag Run is an exciting endless car game that challenges players to navigate a challenging and unpredictable road. Test your reflexes, control your vehicle carefully, and avoid falling off the edge as the road becomes increasingly difficult. How far can you go?",
-      "image": "assets/images/projects/placeholder.svg",
+      "image": "assets/images/projects/zigzagrun.svg",
       "tags": [
         "Unity",
-        "2D",
-        "C#"
+        "3D",
+        "C#", "android"
       ],
       "links": {
-        "demo": "https://example.com",
-        "github": "https://github.com/yourusername",
-        "video": "https://youtube.com"
+        "demo": "https://cindralstudios.itch.io/zigzagrun",
+        "github": "https://github.com/ahsangamedev/ZigZag",
+        "video": "https://www.youtube.com/shorts/N4gNAibr_Rc"
       }
     },
 
