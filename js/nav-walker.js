@@ -116,7 +116,7 @@ class NavWalker {
     const clampedX = Math.max(padding, Math.min(screenW - padding, mouthX));
 
     this.bubble.style.left = `${clampedX}px`;
-    this.bubble.style.top = window.innerWidth <= 480 ? "-4px" : "-8px";
+    this.bubble.style.top = window.innerWidth <= 768 ? "30px" : "36px";
   }
 
   resetPosition() {
